@@ -4,8 +4,8 @@ from oauth2client import client, file, tools
 
 
 # define path variables
-credentials_file_path = './credentials/credentials.json'
-clientsecret_file_path = './credentials/client_secret.json'
+credentials_file_path = '../credentials/credentials.json'
+clientsecret_file_path = '../credentials/client_secret.json'
 
 # define API scope
 SCOPE = 'https://www.googleapis.com/auth/drive'

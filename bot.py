@@ -1,5 +1,6 @@
 import telebot
 import config
+from google_drive_upload import drive_upload
 
 bot = telebot.TeleBot(config.token)
 group_id = -1001265505003
@@ -15,18 +16,13 @@ def pictures_id(message):
     if message.content_type == 'photo':
         print(message.photo)
         id = message.photo[-1].file_id
-        file = bot.get_file(file_id=id)
-        print(file)
-        link = 'https://api.telegram.org/file/bot' + config.token + '/' + file.file_path
-        print(link)
-        bot.download_file(file_path=link)
-
-
-# @bot.message_handler(content_types=['text'])
-# def repeat_message(message):
-#     bot.send_message(message.chat.id, message.text)
-#
-#
+        name = message.photo[-1].file_unique_id
+        file_info = bot.get_file(file_id=id)
+        print(file_info)
+        downloaded_file = bot.download_file(file_info.file_path)
+        drive_upload(downloaded_file, name)
+        upload_message_text = 'Фото успешно загружено на Google Drive'
+        bot.send_message(message.chat.id, upload_message_text)
 
 
 if __name__ == '__main__':
